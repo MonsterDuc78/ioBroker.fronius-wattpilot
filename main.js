@@ -907,12 +907,21 @@ class FroniusWattpilot extends utils.Adapter {
 								"value": false
 							};
 						} else { // should also be checked against floats and stings, but I currently don't know how to do it
-							sendData = {
-								"type": "setValue",
-								"requestId": counter,
-								"key": stateValue[0],
-								"value": parseInt(stateValue[1])
-							};
+							if (stateValue[1].includes(".")) {
+								sendData = {
+									"type": "setValue",
+									"requestId": counter,
+									"key": stateValue[0],
+									"value": parseFloat(stateValue[1])
+								};
+							} else {
+								sendData = {
+									"type": "setValue",
+									"requestId": counter,
+									"key": stateValue[0],
+									"value": parseInt(stateValue[1])
+								};
+							}
 						}
 						// @ts-ignore
 						const data = JSON.stringify(sendData);
